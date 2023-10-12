@@ -5,20 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-<h1>{{ item.name }}</h1>
-<p>{{ item.content }}</p>
-
-<h2>Subitems</h2>
+<h1><a href="{% url 'menu_view' %}">{{ menu.name }}</a></h1>
 <ul>
     {% for subitem in subitems %}
-        <li {% if request.path == subitem.url %}class="active"{% endif %}>
-            <a href="{% url 'menu_item_detail' subitem.id %}">{{ subitem.name }}</a>
+        <li><a href="{% url 'subitem_detail' subitem.id %}">{{ subitem.name }}</a></li>
+    {% endfor %}
+</ul>
+<p>{{ item.content }}</p>
+<h1>{{ item.name }}</h1>
+<ul>
+    {% for subitem in subitems %}
+        <li>
+            <a href="{% url 'subitem_detail' subitem.id %}">{{ subitem.name }}</a>
+            <p>{{ subitem.content }}</p>
         </li>
     {% endfor %}
 </ul>
 
-<h2>First Subitem</h2>
-<p>{{ first_subitem.content }}</p>
+
+<ul>
+    {% for related_menu_item in related_menu_items %}
+        <li>
+            <a href="{% url 'menu_item_detail' related_menu_item.id %}">{{ related_menu_item.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
 
 </body>
 </html>

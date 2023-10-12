@@ -5,17 +5,21 @@
     <title>Title</title>
 </head>
 <body>
+{% if menu_data %}
 <ul>
     {% for menu, top_level_items in menu_data %}
-        <li>{{ menu.name }}</li>
+        <a href="{% url 'menu_view' %}">{{ menu.name }}</a>
         <ul>
+            {% if top_level_items %}
             {% for item in top_level_items %}
-                <li {% if request.path == item.url %}class="active"{% endif %}>
-                    <a href="{% url 'menu_item_detail' item.id %}">{{ item.name }}</a>
-                </li>
+                <li><a href="{% url 'menu_item_detail' item.id %}">{{ item.name }}</a></li>
             {% endfor %}
+            {% else %}
+            <h1>Вы еще не создали пункты меню</h1>
+            {% endif %}
         </ul>
     {% endfor %}
 </ul>
+{% endif %}
 </body>
 </html>
